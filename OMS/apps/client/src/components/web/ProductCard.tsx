@@ -71,7 +71,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                 {/* Image goes here */}
                 <Link href={`/products/${product.id}?colour=${productType.colour}&size=${productType.size}`}>
                     <Image
-                        src={product.images[productType.colour]}
+                        src={product.images?.[productType.colour] || ""}
                         alt={product.name}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-300 ease-in-out"

@@ -37,8 +37,8 @@ export const generateMetadata = async ({ params }: { params: Promise<{ id: strin
 export default async function ProductPage({ params, searchParams }: { params: Promise<{ id: string }>, searchParams: Promise<{ colour: string, size: string }> }) {
     // const { id } = await params;
     const { colour, size } = await searchParams;
-    const selectedColour = (colour || product.colours[0])
-    const selectedSize = (size || product.sizes[0])
+    const selectedColour = (colour || product.colours[0] as string)
+    const selectedSize = (size || product.sizes[0] as string)
 
 
 
@@ -47,7 +47,7 @@ export default async function ProductPage({ params, searchParams }: { params: Pr
             <div className="w-full lg:w-5/12 flex flex-col">
                 {/* product images */}
                 <div className="relative w-full aspect-[2/3]">
-                    <Image src={product.images[selectedColour]} alt={product.name} fill className="object-contain rounded-md" />
+                    <Image src={product.images?.[selectedColour] || ""} alt={product.name} fill className="object-contain rounded-md" />
                 </div>
             </div>
 

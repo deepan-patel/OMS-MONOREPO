@@ -11,8 +11,8 @@ export type Product = {
     name: string
     shortDescription: string
     description: string
-    sizes: string[]
-    colours: string[]
+    sizes: [string, ...string[]]
+    colours: [string, ...string[]]
     images: Record<string, string>
 }
 
@@ -60,7 +60,7 @@ export const columns: ColumnDef<Product>[] = [
             return (
                 <div className="w-9 h-9 relative">
                     <Image
-                        src={product.images[product.colours[0]]}
+                        src={product.images?.[product.colours?.[0]] ?? ""}
                         alt={product.name}
                         fill
                         className="rounded-full object-cover"

@@ -133,7 +133,7 @@ export default function CartPage() {
                                                             <Card key={item.id + item.selectedColor + item.selectedSize} className="flex flex-row">
                                                                 <CardHeader className="relative w-[200px] h-[200px] shrink-0">
                                                                     <Image
-                                                                        src={item.images[item.selectedColor]}
+                                                                        src={item.images?.[item.selectedColor] || ""}
                                                                         alt={item.name}
                                                                         fill
                                                                         className="object-contain"
