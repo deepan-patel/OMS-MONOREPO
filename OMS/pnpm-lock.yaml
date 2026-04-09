@@ -195,6 +195,25 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
 
+  apps/payment-service:
+    dependencies:
+      '@hono/node-server':
+        specifier: ^1.19.13
+        version: 1.19.13(hono@4.12.12)
+      hono:
+        specifier: ^4.12.12
+        version: 4.12.12
+    devDependencies:
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.19.39
+      tsx:
+        specifier: ^4.7.1
+        version: 4.21.0
+      typescript:
+        specifier: ^5.8.3
+        version: 5.9.2
+
   apps/product-service:
     dependencies:
       cors:

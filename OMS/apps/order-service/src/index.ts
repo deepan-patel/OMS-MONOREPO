@@ -3,6 +3,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http'
 
 const server: FastifyInstance = Fastify({})
 
+
 const opts: RouteShorthandOptions = {
     schema: {
         response: {
@@ -18,9 +19,14 @@ const opts: RouteShorthandOptions = {
     }
 }
 
-server.get('/ping', opts, async (request, reply) => {
-    return { pong: 'it worked!' }
-})
+server.get("/health", (req, reply) => {
+    reply.status(200).send({
+        status: "ok",
+        uptime: process.uptime(),
+        timestamp: Date.now()
+    });
+});
+
 
 const start = async () => {
     try {
