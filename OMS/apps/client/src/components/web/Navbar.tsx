@@ -5,6 +5,7 @@ import SearchBar from "./SearchBar";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 import { ThemeToggle } from "../theme/ThemeToggle";
 import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+import ProfileButton from "./ProfileButton";
 
 export default function NavBar() {
     return (
@@ -25,7 +26,8 @@ export default function NavBar() {
                     <Link className={buttonVariants({ variant: "default", className: "hover:text-primary" })} href="/sign-in" >Sign In</Link>
                 </Show>
                 <Show when="signed-in">
-                    <UserButton />
+                    {/* <UserButton /> */}
+                    <ProfileButton />
                 </Show>
             </div>
 
