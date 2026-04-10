@@ -22,8 +22,11 @@ export default function NavBar() {
                 <Bell className="hover:text-primary w-9 h-9 text-gray-500" />
                 <ThemeToggle />
                 <ShoppingCartIcon />
-                <Show when="signed-out">
-                    <Link className={buttonVariants({ variant: "default", className: "hover:text-primary" })} href="/sign-in" >Sign In</Link>
+                <Show when="signed-out" >
+                    <div className="flex items-center gap-2">
+                        <Link className={buttonVariants({ variant: "secondary", className: "hover:text-primary" })} href="/sign-up" >Sign Up</Link>
+                        <Link className={buttonVariants({ variant: "default", className: "hover:text-primary" })} href="/sign-in" >Sign In</Link>
+                    </div>
                 </Show>
                 <Show when="signed-in">
                     {/* <UserButton /> */}
