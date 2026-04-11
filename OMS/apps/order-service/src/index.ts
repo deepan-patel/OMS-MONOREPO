@@ -1,6 +1,7 @@
 import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { clerkClient, clerkPlugin, getAuth } from '@clerk/fastify'
+import { shouldBeUser } from './middleware/authMiddleware.js'
 
 const server: FastifyInstance = Fastify({})
 
@@ -31,27 +32,13 @@ server.get("/health", (req, reply) => {
 });
 
 
-server.get('/test', async (req, reply) => {
-    try {
+server.get("/test", { preHandler: shouldBeUser }, (request, reply) => {
+    return reply.send({
+        message: "Order service is authenticated!",
+        userId: request.userId,
+    });
+});
 
-        const { isAuthenticated, userId } = getAuth(req)
-
-
-        if (!isAuthenticated) {
-            return reply.code(401).send({ error: 'User not authenticated' })
-        }
-
-        const user = await clerkClient.users.getUser(userId)
-
-        return reply.send({
-            message: 'User retrieved successfully for the order service!!',
-            user,
-        })
-    } catch (error) {
-        server.log.error(error)
-        return reply.code(500).send({ error: 'Failed to retrieve user' })
-    }
-})
 
 
 

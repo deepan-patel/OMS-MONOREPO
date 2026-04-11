@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth'
+import { shouldBeUser } from '../middleware/authMiddleware.js'
 
 const app = new Hono()
 app.use('*', clerkMiddleware())
@@ -13,18 +14,12 @@ app.get('/health', (c) => {
   })
 })
 
-app.get('/test', (c) => {
-  const { userId } = getAuth(c)
+app.get('/test', shouldBeUser, (c) => {
 
-  if (!userId) {
-    return c.json({
-      message: 'You are not logged in for the payment service.',
-    })
-  }
 
   return c.json({
     message: 'You are logged in for the payment service!',
-    userId,
+    userId: c.get("userId"),
   })
 })
 
