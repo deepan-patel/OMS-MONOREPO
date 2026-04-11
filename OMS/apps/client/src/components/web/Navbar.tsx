@@ -18,8 +18,8 @@ export default function NavBar() {
 
             <div className="flex items-center gap-6">
                 <SearchBar />
-                <Link href="/"><Home className="hover:text-primary text-gray-500" /></Link>
-                <Bell className="hover:text-primary w-9 h-9 text-gray-500" />
+                <Link href="/"><Home className="hover:text-primary h-[1.2rem] w-[1.2rem] dark:text-white cursor-pointer text-foreground" /></Link>
+                <Link href="/"><Bell className="hover:text-primary h-[1.2rem] w-[1.2rem] dark:text-white cursor-pointer text-foreground" /></Link>
                 <ThemeToggle />
                 <ShoppingCartIcon />
                 <Show when="signed-out" >
@@ -29,25 +29,10 @@ export default function NavBar() {
                     </div>
                 </Show>
                 <Show when="signed-in">
-                    {/* <UserButton /> */}
                     <ProfileButton />
                 </Show>
             </div>
 
-            {/* <div>
-                <Show when="signed-out">
-                    <SignInButton />
-                    <SignUpButton>
-                        <button className="bg-purple-700 text-white rounded-full font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer">
-                            Sign Up
-                        </button>
-                    </SignUpButton>
-                </Show>
-                <Show when="signed-in">
-                    <UserButton />
-                </Show>
-            </div> */}
-
-        </nav>
+        </nav >
     )
 }

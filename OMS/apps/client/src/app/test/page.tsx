@@ -21,7 +21,7 @@ export default async function TestPage() {
     const dataOrder = await resOrder.json();
     console.log(dataOrder);
 
-    const resPayment = await fetch("http://localhost:8003/test", {
+    const resPayment = await fetch("http://localhost:8002/test", {
         headers: {
             Authorization: `Bearer ${token}`
         }

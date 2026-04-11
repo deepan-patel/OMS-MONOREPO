@@ -13,7 +13,7 @@ export default function ShoppingCartIcon() {
     return (
         <div className="relative">
             <Link href="/cart">
-                <ShoppingCart className="hover:text-primary w-6 h-6 text-gray-500" />
+                <ShoppingCart className="hover:text-primary h-[1.2rem] w-[1.2rem] text-foreground cursor-pointer" />
             </Link>
             {
                 cart.length > 0 && (
