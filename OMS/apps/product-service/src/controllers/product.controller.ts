@@ -28,5 +28,50 @@ export const createProduct = async (req: Request, res: Response) => {
 };
 export const updateProduct = async (req: Request, res: Response) => { };
 export const deleteProduct = async (req: Request, res: Response) => { };
-export const getProducts = async (req: Request, res: Response) => { };
-export const getProduct = async (req: Request, res: Response) => { };
+export const getProducts = async (req: Request, res: Response) => {
+    const { sort, category, search, limit } = req.query;
+
+    const orderBy = (() => {
+        switch (sort) {
+            case "asc":
+                return { price: "asc" };
+            case "desc":
+                return { price: "desc" };
+            case "oldest":
+                return { createdAt: "asc" };
+            default:
+                return { createdAt: "desc" };
+        }
+    })();
+
+    const products = await prisma.product.findMany({
+        where: {
+            ...(category && {
+                category: {
+                    slug: category as string
+                }
+            }),
+            ...(search && {
+                name: {
+                    contains: search as string,
+                    mode: "insensitive"
+                }
+            })
+        },
+        orderBy,
+        take: limit ? Number(limit) : undefined
+    });
+
+    res.status(200).json(products);
+};
+export const getProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const product = await prisma.product.findUnique({ where: { id } });
+
+    if (!product) {
+        return res.status(404).json({ error: "Product not found!" });
+    }
+
+    res.status(200).json(product);
+};
