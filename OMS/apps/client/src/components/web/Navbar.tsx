@@ -4,6 +4,8 @@ import { buttonVariants } from "../ui/button";
 import SearchBar from "./SearchBar";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 import { ThemeToggle } from "../theme/ThemeToggle";
+import { ClerkProvider, Show, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs'
+import ProfileButton from "./ProfileButton";
 
 export default function NavBar() {
     return (
@@ -16,13 +18,21 @@ export default function NavBar() {
 
             <div className="flex items-center gap-6">
                 <SearchBar />
-                <Link href="/"><Home className="hover:text-primary text-gray-500" /></Link>
-                <Bell className="hover:text-primary w-9 h-9 text-gray-500" />
+                <Link href="/"><Home className="hover:text-primary h-[1.2rem] w-[1.2rem] dark:text-white cursor-pointer text-foreground" /></Link>
+                <Link href="/"><Bell className="hover:text-primary h-[1.2rem] w-[1.2rem] dark:text-white cursor-pointer text-foreground" /></Link>
                 <ThemeToggle />
                 <ShoppingCartIcon />
-                <Link className={buttonVariants({ variant: "default", className: "hover:text-primary" })} href="/sign-in" >Sign In</Link>
+                <Show when="signed-out" >
+                    <div className="flex items-center gap-2">
+                        <Link className={buttonVariants({ variant: "secondary", className: "hover:text-primary" })} href="/sign-up" >Sign Up</Link>
+                        <Link className={buttonVariants({ variant: "default", className: "hover:text-primary" })} href="/sign-in" >Sign In</Link>
+                    </div>
+                </Show>
+                <Show when="signed-in">
+                    <ProfileButton />
+                </Show>
             </div>
 
-        </nav>
+        </nav >
     )
 }

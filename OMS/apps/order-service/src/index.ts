@@ -1,7 +1,11 @@
 import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
+import { clerkClient, clerkPlugin, getAuth } from '@clerk/fastify'
+import { shouldBeUser } from './middleware/authMiddleware.js'
 
 const server: FastifyInstance = Fastify({})
+
+server.register(clerkPlugin)
 
 
 const opts: RouteShorthandOptions = {
@@ -26,6 +30,16 @@ server.get("/health", (req, reply) => {
         timestamp: Date.now()
     });
 });
+
+
+server.get("/test", { preHandler: shouldBeUser }, (request, reply) => {
+    return reply.send({
+        message: "Order service is authenticated!",
+        userId: request.userId,
+    });
+});
+
+
 
 
 const start = async () => {
