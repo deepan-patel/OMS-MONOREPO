@@ -1,7 +1,7 @@
 import BarChartComponent from "@/components/charts/BarChartComponent";
 import PieChartComponent from "@/components/charts/PieChartComponent";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
-import CardList from "@/components/cards/CardList";
+import CardList from "@/components/Cards/CardList";
 import TodoList from "@/components/web/TodoList";
 
 export default function HomePage() {

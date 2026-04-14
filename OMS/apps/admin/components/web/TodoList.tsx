@@ -3,7 +3,7 @@
 
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useState } from "react"
-import CheckCard from "../cards/CheckCard"
+import CheckCard from "../Cards/CheckCard"
 import { Button } from "../ui/button"
 import { Calendar as CalendarIcon } from "lucide-react";
 

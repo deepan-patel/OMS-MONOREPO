@@ -1,6 +1,5 @@
 
 import BreadcrumbComponent from "@/components/web/BreadcrumbComponent"
-import CardList from "@/components/cards/CardList"
 
 import {
     HoverCard,
@@ -8,7 +7,6 @@ import {
     HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { BadgeCheck, Candy, Citrus, Shield, UserRoundPen } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
 
