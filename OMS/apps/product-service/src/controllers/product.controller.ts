@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
-import { prisma } from "@repo/product-db";
+import { prisma, Prisma } from "@repo/product-db";
 
 export const createProduct = async (req: Request, res: Response) => {
-    const data: prisma.ProductCreateInput = req.body;
+    const data: Prisma.ProductCreateInput = req.body;
 
     // checking if the mapping is correct for sizes and colours
     const { colours, images } = data;
@@ -16,7 +16,7 @@ export const createProduct = async (req: Request, res: Response) => {
     }
 
     // now we need to make sure the mapping works 
-    const missingColours = colours.filter((c) => !images[c]);
+    const missingColours = colours.filter((colour) => !(colour in images));
 
     if (missingColours.length > 0) {
         return res.status(400).json({ error: `Missing images for colours: ${missingColours.join(", ")}` });
@@ -26,48 +26,62 @@ export const createProduct = async (req: Request, res: Response) => {
     res.status(201).json(product);
 
 };
-export const updateProduct = async (req: Request, res: Response) => { };
+export const updateProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const data: Prisma.ProductUpdateInput = req.body;
+
+    const updatedProduct = await prisma.product.update({
+        where: { id: Number(id) },
+        data
+    });
+
+    res.status(200).json(updatedProduct);
+
+};
 export const deleteProduct = async (req: Request, res: Response) => { };
+
+
 export const getProducts = async (req: Request, res: Response) => {
     const { sort, category, search, limit } = req.query;
 
     const orderBy = (() => {
         switch (sort) {
             case "asc":
-                return { price: "asc" };
+                return { price: Prisma.SortOrder.asc };
             case "desc":
-                return { price: "desc" };
+                return { price: Prisma.SortOrder.desc };
             case "oldest":
-                return { createdAt: "asc" };
+                return { createdAt: Prisma.SortOrder.asc };
             default:
-                return { createdAt: "desc" };
+                return { createdAt: Prisma.SortOrder.desc };
         }
     })();
 
     const products = await prisma.product.findMany({
         where: {
-            ...(category && {
-                category: {
-                    slug: category as string
-                }
-            }),
-            ...(search && {
-                name: {
-                    contains: search as string,
-                    mode: "insensitive"
-                }
-            })
+            category: {
+                slug: category as string,
+            },
+            name: {
+                contains: search as string,
+                mode: "insensitive",
+            },
         },
         orderBy,
-        take: limit ? Number(limit) : undefined
+        take: limit ? Number(limit) : undefined,
     });
 
     res.status(200).json(products);
 };
+
+
 export const getProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const product = await prisma.product.findUnique({ where: { id } });
+    const product = await prisma.product.findUnique(
+        { where: { id: Number(id) } }
+    );
 
     if (!product) {
         return res.status(404).json({ error: "Product not found!" });
