@@ -1,8 +1,8 @@
 import { Request, Response } from "express"
-import { prisma } from "@repo/product-db"
+import { prisma, Prisma } from "@repo/product-db"
 
 export const createCategory = async (req: Request, res: Response) => {
-    const data: prisma.CategoryCreateInput = req.body;
+    const data: Prisma.CategoryCreateInput = req.body;
 
     const category = await prisma.category.create({ data });
     res.status(201).json(category);
