@@ -4,6 +4,9 @@ export default async function TestPage() {
     const { getToken } = await auth();
     const token = await getToken();
 
+    // testing
+    console.log("token", token)
+
     const resProduct = await fetch("http://localhost:8000/test", {
         headers: {
             Authorization: `Bearer ${token}`
