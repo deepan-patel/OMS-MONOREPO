@@ -2,6 +2,8 @@ import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'http'
 import { clerkClient, clerkPlugin, getAuth } from '@clerk/fastify'
 import { shouldBeUser } from './middleware/authMiddleware.js'
+import { connectOrderDB } from '@repo/order-db'
+import { orderRouter } from './routes/order.js'
 
 const server: FastifyInstance = Fastify({})
 
@@ -39,11 +41,12 @@ server.get("/test", { preHandler: shouldBeUser }, (request, reply) => {
     });
 });
 
-
-
+// added order routes
+server.register(orderRouter)
 
 const start = async () => {
     try {
+        await connectOrderDB();
         await server.listen({ port: 8001 })
 
         const address = server.server.address()
