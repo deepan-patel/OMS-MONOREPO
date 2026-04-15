@@ -1,5 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
 import { clerkMiddleware, getAuth } from '@clerk/express'
+import type { CustomJwtSessionClaims } from '@repo/types';
 
 declare global {
     namespace Express {
@@ -23,5 +24,28 @@ export const shouldBeUser = (req: Request, res: Response, next: NextFunction) =>
 
     next();
 
+}
+
+export const shouldBeAdmin = (req: Request, res: Response, next: NextFunction) => {
+    const auth = getAuth(req);
+    const userId = auth.userId;
+
+    if (!userId) {
+        return res.status(401).json({
+            message: "You are not authorized for the product service."
+        })
+    }
+
+    const claims = auth.sessionClaims as unknown as CustomJwtSessionClaims;
+
+    if (claims.metadata?.role !== "admin") {
+        return res.status(403).json({
+            message: "You are not authorized for the product service."
+        })
+    }
+
+    req.userId = auth.userId;
+
+    next();
 
 }

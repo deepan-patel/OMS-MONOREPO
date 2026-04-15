@@ -1,5 +1,5 @@
 import fastify, { FastifyInstance } from "fastify"
-import { shouldBeUser } from "../middleware/authMiddleware"
+import { shouldBeUser, shouldBeAdmin } from "../middleware/authMiddleware"
 import { Order } from "@repo/order-db"
 
 export const orderRouter = async (fastify: FastifyInstance) => {
@@ -10,7 +10,7 @@ export const orderRouter = async (fastify: FastifyInstance) => {
         return reply.send(orders);
     })
 
-    fastify.get("/orders", async (req, reply) => {
+    fastify.get("/orders", { preHandler: [shouldBeAdmin] }, async (req, reply) => {
         const orders = await Order.find()
         return reply.send(orders);
     })
