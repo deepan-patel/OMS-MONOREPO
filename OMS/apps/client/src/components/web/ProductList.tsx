@@ -1,4 +1,4 @@
-import { ProductType } from "@/types";
+import { ProductsType } from "@repo/types";
 import Categories from "./Categories";
 import ProductCard from "./ProductCard";
 import Link from "next/link";
@@ -22,6 +22,10 @@ export default function ProductList({ category, params }: { category: string, pa
                 purple: "/products/1p.png",
                 green: "/products/1gr.png",
             },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
+
         },
         {
             id: 2,
@@ -34,6 +38,9 @@ export default function ProductList({ category, params }: { category: string, pa
             sizes: ["s", "m", "l", "xl"],
             colours: ["gray", "green"],
             images: { gray: "/products/2g.png", green: "/products/2gr.png" },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 3,
@@ -50,6 +57,9 @@ export default function ProductList({ category, params }: { category: string, pa
                 blue: "/products/3b.png",
                 black: "/products/3bl.png",
             },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 4,
@@ -65,6 +75,9 @@ export default function ProductList({ category, params }: { category: string, pa
                 white: "/products/4w.png",
                 pink: "/products/4p.png"
             },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 5,
@@ -81,6 +94,9 @@ export default function ProductList({ category, params }: { category: string, pa
                 orange: "/products/5o.png",
                 black: "/products/5bl.png",
             },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 6,
@@ -93,6 +109,9 @@ export default function ProductList({ category, params }: { category: string, pa
             sizes: ["40", "42", "43", "44"],
             colours: ["gray", "white"],
             images: { gray: "/products/6g.png", white: "/products/6w.png" },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 7,
@@ -105,6 +124,9 @@ export default function ProductList({ category, params }: { category: string, pa
             sizes: ["40", "42", "43"],
             colours: ["gray", "pink"],
             images: { gray: "/products/7g.png", pink: "/products/7p.png" },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
         {
             id: 8,
@@ -117,6 +139,9 @@ export default function ProductList({ category, params }: { category: string, pa
             sizes: ["s", "m", "l"],
             colours: ["blue", "green"],
             images: { blue: "/products/8b.png", green: "/products/8gr.png" },
+            categorySlug: "Test",
+            createdAt: new Date(),
+            updatedAt: new Date(),
         },
     ];
 
@@ -142,4 +167,4 @@ export default function ProductList({ category, params }: { category: string, pa
     )
 }
 
-export type ProductsType = ProductType[];
+// export type ProductsType = ProductType[];

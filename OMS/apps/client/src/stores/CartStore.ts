@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { CartItemsType, CartStoreActionsType, CartStoreStateType, CartItemType } from '@/types'
+import { CartItemsType, CartStoreActionsType, CartStoreStateType, CartItemType } from '@repo/types'
 import { persist, createJSONStorage } from "zustand/middleware"
 
 const isSameVariant = (a: CartItemType, b: CartItemType) =>

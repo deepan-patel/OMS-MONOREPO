@@ -1,13 +1,13 @@
 "use client"
 
 import { useRouter, useSearchParams } from "next/navigation"
-import { CartItemType } from "@/types";
+import { CartItemType } from "@repo/types";
 import { cn } from "@/lib/utils"
 import { useState } from "react";
 
 import { Separator } from "@/components/ui/separator"
 
-import { ShippingFormInputs } from "@/app/ZodSchemas/Shipping";
+import { ShippingFormInputs } from "@repo/types";
 
 import {
     Card,
@@ -133,7 +133,7 @@ export default function CartPage() {
                                                             <Card key={item.id + item.selectedColor + item.selectedSize} className="flex flex-row">
                                                                 <CardHeader className="relative w-[200px] h-[200px] shrink-0">
                                                                     <Image
-                                                                        src={item.images?.[item.selectedColor] || ""}
+                                                                        src={(item.images as Record<string, string>)?.[item.selectedColor] || ""}
                                                                         alt={item.name}
                                                                         fill
                                                                         className="object-contain"

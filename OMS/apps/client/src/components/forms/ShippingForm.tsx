@@ -41,7 +41,7 @@ import { Input } from "@/components/ui/input"
 
 import { toast } from "sonner"
 
-import { ShippingFormInputs, ShippingFormSchema } from "@/app/ZodSchemas/Shipping";
+import { ShippingFormInputs, ShippingFormSchema } from "@repo/types";
 import { useRouter } from "next/navigation";
 
 type ShippingFormProps = {
@@ -51,7 +51,7 @@ type ShippingFormProps = {
 export default function ShippingForm({ setShippingForm }: ShippingFormProps) {
 
 
-    const form = useForm<z.infer<typeof ShippingFormSchema>>({
+    const form = useForm<ShippingFormInputs>({
         resolver: zodResolver(ShippingFormSchema),
         defaultValues: {
             name: "",
@@ -67,7 +67,7 @@ export default function ShippingForm({ setShippingForm }: ShippingFormProps) {
 
     const router = useRouter();
 
-    function onSubmit(data: z.infer<typeof ShippingFormSchema>) {
+    function onSubmit(data: ShippingFormInputs) {
         setShippingForm(data);
         toast.success("Shipping information saved successfully");
         router.push("/cart?step=3", { scroll: false });

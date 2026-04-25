@@ -42,14 +42,14 @@ import { Input } from "@/components/ui/input"
 
 import { toast } from "sonner"
 
-import { PaymentFormInputs, PaymentFormSchema } from "@/app/ZodSchemas/Payment";
+import { PaymentFormInputs, PaymentFormSchema } from "@repo/types";
 import { useRouter } from "next/navigation";
 
 
 export default function PaymentForm() {
 
 
-    const form = useForm<z.infer<typeof PaymentFormSchema>>({
+    const form = useForm<PaymentFormInputs>({
         resolver: zodResolver(PaymentFormSchema),
         defaultValues: {
             CardHolderName: "",

@@ -21,7 +21,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Button } from "../ui/button"
 import { ShoppingCart, Plus, Minus } from "lucide-react"
 
-import { ProductType } from "@/types"
+import { ProductType } from "@repo/types"
 
 import { toast } from "sonner"
 
@@ -36,8 +36,8 @@ export default function ProductCard({ product }: { product: ProductType }) {
 
 
     const [productType, setProductType] = useState({
-        colour: product.colours?.[0] ?? "",
-        size: product.sizes?.[0] ?? "",
+        colour: product.colours[0]!,
+        size: product.sizes[0]!,
     })
 
     const handleProductType = ({ type, value }: { type: "size" | "colour", value: string }) => {
@@ -71,7 +71,7 @@ export default function ProductCard({ product }: { product: ProductType }) {
                 {/* Image goes here */}
                 <Link href={`/products/${product.id}?colour=${productType.colour}&size=${productType.size}`}>
                     <Image
-                        src={product.images?.[productType.colour] || ""}
+                        src={(product.images as Record<string, string>)?.[productType.colour] || ""}
                         alt={product.name}
                         fill
                         className="object-cover hover:scale-105 transition-transform duration-300 ease-in-out"

@@ -1,6 +1,6 @@
 
 
-import { ProductType } from "@/types"
+import { ProductType } from "@repo/types"
 import Image from "next/image"
 
 import SingleProductCard from "@/components/web/SingleProductCard"
@@ -22,6 +22,9 @@ const product: ProductType = {
         purple: "/products/1p.png",
         green: "/products/1gr.png",
     },
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    categorySlug: "Test",
 };
 
 export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -47,7 +50,7 @@ export default async function ProductPage({ params, searchParams }: { params: Pr
             <div className="w-full lg:w-5/12 flex flex-col">
                 {/* product images */}
                 <div className="relative w-full aspect-[2/3]">
-                    <Image src={product.images?.[selectedColour] || ""} alt={product.name} fill className="object-contain rounded-md" />
+                    <Image src={(product.images as Record<string, string>)?.[selectedColour] || ""} alt={product.name} fill className="object-contain rounded-md" />
                 </div>
             </div>
 
