@@ -1,5 +1,5 @@
 "use client"
-import { ProductType } from "@/types"
+import { ProductType } from "@repo/types"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useState } from "react"
 import useCartStore from "@/stores/CartStore"
